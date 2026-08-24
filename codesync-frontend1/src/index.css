@@ -1,0 +1,10 @@
+
+@import "tailwindcss";
+
+/* 🛠️ Add this line to tell Tailwind v4 to use the 'dark' class instead of computer system settings */
+@custom-variant dark (&:where(.dark, .dark *));
+
+body{
+    font-family:"Poppins", sans-serif;
+    background:#0f172a;
+}

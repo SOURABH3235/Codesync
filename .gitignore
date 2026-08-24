@@ -1,0 +1,17 @@
+﻿# Frontend
+codesync-frontend1/node_modules/
+codesync-frontend1/dist/
+codesync-frontend1/.env
+
+# Backend
+Codesyncbackend-main/target/
+Codesyncbackend-main/.mvn/
+Codesyncbackend-main/.idea/
+Codesyncbackend-main/*.iml
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
