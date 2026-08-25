@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import WorkspaceChat from "../components/WorkspaceChat";
 import { getProject } from "../services/projectService";
@@ -15,7 +15,6 @@ import {
 import WorkspaceNavbar from "../components/WorkspaceNavbar";
 import FileExplorer from "../components/FileExplorer";
 import CodeEditor from "../components/Editor";
-import RightSidebar from "../components/RightSidebar";
 import EditorTabs from "../components/EditorTabs";
 
 import CreateFileModal from "../components/CreateFileModal";
@@ -50,11 +49,11 @@ const [projectDetails, setProjectDetails] = useState(null);
     const [showRenameModal, setShowRenameModal] = useState(false);
 
     const [renameFileData, setRenameFileData] = useState(null);
-
+const [stompClient] = useState(null);
     const [openTabs, setOpenTabs] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
 
-    const [stompClient, setStompClient] = useState(null);
+    
 
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [remoteCursors, setRemoteCursors] = useState({});
@@ -81,10 +80,42 @@ const [projectDetails, setProjectDetails] = useState(null);
         selectedFileRef.current = selectedFile;
     }, [selectedFile]);
 
+const loadFiles = useCallback(async () => {
+    try {
+        setLoading(true);
+        setError("");
+
+        try {
+            const projectData = await getProject(projectId);
+            setProjectDetails(projectData);
+        } catch (pErr) {
+            console.error("Could not load project details", pErr);
+        }
+
+        const projectFiles = await getFiles(projectId);
+        setFiles(projectFiles);
+
+        if (projectFiles.length > 0) {
+            const file = await getFile(projectFiles[0].id);
+            setSelectedFile(file);
+            setOpenTabs([file]);
+            setActiveTab(file.id);
+        } else {
+            setSelectedFile(null);
+            setOpenTabs([]);
+            setActiveTab(null);
+        }
+    } catch (err) {
+        console.error(err);
+        setError("Failed to load project files.");
+    } finally {
+        setLoading(false);
+    }
+}, [projectId]);
 
     useEffect(() => {
         loadFiles();
-    }, [projectId]);
+    }, [loadFiles]);
 
 
     useEffect(() => {
@@ -235,43 +266,7 @@ const [projectDetails, setProjectDetails] = useState(null);
     }, [projectId]); 
 
 
-    // ---------------- LOAD FILES ----------------
 
-  // ---------------- LOAD FILES ----------------
-    const loadFiles = async () => {
-        try {
-            setLoading(true);
-            setError("");
-
-            // 🛠️ 2. Fetch the project details (like the name!)
-            try {
-                // Change getProject to whatever your fetch function is called!
-                const projectData = await getProject(projectId); 
-                setProjectDetails(projectData);
-            } catch (pErr) {
-                console.error("Could not load project details", pErr);
-            }
-
-            const projectFiles = await getFiles(projectId);
-            setFiles(projectFiles);
-
-            if (projectFiles.length > 0) {
-                const file = await getFile(projectFiles[0].id);
-                setSelectedFile(file);
-                setOpenTabs([file]);
-                setActiveTab(file.id);
-            } else {
-                setSelectedFile(null);
-                setOpenTabs([]);
-                setActiveTab(null);
-            }
-        } catch (err) {
-            console.error(err);
-            setError("Failed to load project files.");
-        } finally {
-            setLoading(false);
-        }
-    };
 
 
     // ---------------- OPEN FILE ----------------
@@ -499,6 +494,6 @@ const [projectDetails, setProjectDetails] = useState(null);
             }
         </div>
     );
-}
 
+}
 export default Workspace;
