@@ -8,7 +8,7 @@ export const connectWebSocket = (onConnected) => {
     const token = localStorage.getItem("token");
 
     stompClient = new Client({
-        brokerURL: "ws://localhost:8080/ws",
+        brokerURL: import.meta.env.VITE_WS_URL,
         reconnectDelay: 5000,
         
         // 🛠️ FIX 1: Pass the JWT in the STOMP CONNECT frame

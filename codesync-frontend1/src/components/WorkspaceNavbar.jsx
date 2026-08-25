@@ -55,4 +55,5 @@ function WorkspaceNavbar( { projectId, projectName ,onToggleLeft, onToggleRight 
     );
 }
 
+
 export default WorkspaceNavbar;

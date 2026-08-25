@@ -78,7 +78,10 @@ export const shareProject = async (projectId, email) => {
         
         // 2. Debug logs - we will check this in the console!
         console.log("=== SHARE PROJECT DEBUG ===");
-        console.log("URL:", `http://localhost:8080/api/projects/${projectId}/share`);
+        console.log(
+  "URL:",
+  `${import.meta.env.VITE_API_URL}/api/projects/${projectId}/share`
+);
         console.log("TOKEN:", token); 
         console.log("===========================");
 
@@ -87,8 +90,8 @@ export const shareProject = async (projectId, email) => {
         }
 
         // 3. Send the request with forced headers
-        const response = await axios.post(
-            `http://localhost:8080/api/projects/${projectId}/share`, 
+       const response = await axios.post(
+  `${import.meta.env.VITE_API_URL}/api/projects/${projectId}/share`,
             { email: email },
             {
                 headers: {

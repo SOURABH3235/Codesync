@@ -25,7 +25,7 @@ function WorkspaceChat({ projectId, currentUserEmail }) {
         const fetchHistory = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get(`http://localhost:8080/api/projects/${projectId}/chat`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/projects/${projectId}/chat`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 
