@@ -28,7 +28,7 @@ import {
     createFile,
     deleteFile,
     renameFile
-} from "./services/fileservice";
+} from "../services/fileservice";
 
 function Workspace() {
 
