@@ -10,7 +10,7 @@ import {
     sendCursorPosition
 } from "../services/websocket";
 
-import { updateFile } from "../services/fileService";
+import { updateFile } from "../services/fileservice";
 
 let editorInstance = null;
 
