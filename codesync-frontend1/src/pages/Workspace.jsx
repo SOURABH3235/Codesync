@@ -28,7 +28,7 @@ import {
     createFile,
     deleteFile,
     renameFile
-} from "../services/fileService";
+} from "./services/fileservice";
 
 function Workspace() {
 
@@ -114,7 +114,7 @@ const loadFiles = useCallback(async () => {
 }, [projectId]);
 
     useEffect(() => {
-        loadFiles();
+        
     }, [loadFiles]);
 
 
