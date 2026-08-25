@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCode } from "react-icons/fa";
-import { loginUser } from "../services/authService";
+import { loginUser } from "../services/authservice";
 function Login() {
 
     const [showPassword,setShowPassword]=useState(false);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCode, FaEye, FaEyeSlash, FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import { registerUser } from "../services/authService";
+import { registerUser } from "../services/authservice";
 
 function Register() {
 
