@@ -21,9 +21,9 @@ public class FileEntity {
 
     @Column(nullable = false)
     private String fileName;
-
-    @Column(columnDefinition = "LONGTEXT")
-    private String content;
+    
+@Column(columnDefinition = "TEXT")
+private String content;
 
     @Column(nullable = false)
     private String language;
